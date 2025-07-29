@@ -4,6 +4,31 @@ import random
 import pickle
 from collections import defaultdict
 
+
+def _calculate_mean_probabilities(chain):
+    out_mean = {word: np.mean(list(transitions.values())) if transitions else 0 for word, transitions in
+                chain.items()}
+    in_transitions = defaultdict(list)
+    for word, transitions in chain.items():
+        for next_word, prob in transitions.items():
+            in_transitions[next_word].append(prob)
+    in_mean = {word: np.mean(in_transitions[word]) if word in in_transitions else 0 for word in chain}
+    return in_mean, out_mean
+
+
+def _build_probabilistic_chain(documents):
+    chain = defaultdict(lambda: defaultdict(int))
+    for doc in documents:
+        tokens = doc.lower().split()
+        for i in range(len(tokens) - 1):
+            chain[tokens[i]][tokens[i + 1]] += 1
+    for word, transitions in chain.items():
+        total = sum(transitions.values())
+        for next_word in transitions:
+            transitions[next_word] /= total
+    return dict(chain)
+
+
 class GraphProbabilisticInformationLeakageDetector:
     def __init__(self, p1=2, p2=2, smoothing_constant=1e-8):
         self.p1 = p1
@@ -15,33 +40,6 @@ class GraphProbabilisticInformationLeakageDetector:
         self.leak_in_mean = None
         self.normal_out_mean = None
         self.leak_out_mean = None
-
-    def train(self, real_news, fake_news):
-        self.normal_chain = self._build_markov_chain(real_news)
-        self.leak_chain = self._build_markov_chain(fake_news)
-        self.normal_in_mean, self.normal_out_mean = self._calculate_mean_probabilities(self.normal_chain)
-        self.leak_in_mean, self.leak_out_mean = self._calculate_mean_probabilities(self.leak_chain)
-
-    def _build_markov_chain(self, documents):
-        chain = defaultdict(lambda: defaultdict(int))
-        for doc in documents:
-            tokens = doc.lower().split()
-            for i in range(len(tokens) - 1):
-                chain[tokens[i]][tokens[i + 1]] += 1
-        for word, transitions in chain.items():
-            total = sum(transitions.values())
-            for next_word in transitions:
-                transitions[next_word] /= total
-        return dict(chain)
-
-    def _calculate_mean_probabilities(self, chain):
-        out_mean = {word: np.mean(list(transitions.values())) if transitions else 0 for word, transitions in chain.items()}
-        in_transitions = defaultdict(list)
-        for word, transitions in chain.items():
-            for next_word, prob in transitions.items():
-                in_transitions[next_word].append(prob)
-        in_mean = {word: np.mean(in_transitions[word]) if word in in_transitions else 0 for word in chain}
-        return in_mean, out_mean
 
     def _calculate_sequence_probability(self, sequence, chain, in_mean, out_mean):
         log_prob = 0.0
@@ -55,6 +53,12 @@ class GraphProbabilisticInformationLeakageDetector:
                 transition_prob = out_prob * in_prob
             log_prob += math.log10(transition_prob) if transition_prob > 0 else -15
         return log_prob
+
+    def train(self, normal_text, leaked_text):
+        self.normal_chain = _build_probabilistic_chain(normal_text)
+        self.leak_chain = _build_probabilistic_chain(leaked_text)
+        self.normal_in_mean, self.normal_out_mean = _calculate_mean_probabilities(self.normal_chain)
+        self.leak_in_mean, self.leak_out_mean = _calculate_mean_probabilities(self.leak_chain)
 
     def predict(self, text):
         tokens = text.lower().split()
