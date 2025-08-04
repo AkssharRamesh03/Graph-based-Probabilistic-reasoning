@@ -24,7 +24,7 @@ uvicorn app.main:app --reload  # Start the server at localhost:8000
 ### `POST /detect`
 Classifies a given piece of text as either leakage or clean.
 
-**Request Body:**
+1. **Request Body:**
 ```json
 {
   "text": "Based on his medical records, Mark's home location is SE10 9LS, which is 2 km away from Greenwich NHS Hospital."
@@ -37,7 +37,19 @@ Classifies a given piece of text as either leakage or clean.
   "class": "1" 
 }
 ```
-
+2. **Request Body:**
+```json
+{
+    "text": "Hi Amanda, your condition is linked to family history. Regular testing and symptom tracking are typically recommended."
+}
+```
+**Response:**
+(class 0: normal, class 1: leak)
+```json
+{
+  "class": "0" 
+}
+```
 ### `POST /train`
 Retrains the model with custom data.
 
