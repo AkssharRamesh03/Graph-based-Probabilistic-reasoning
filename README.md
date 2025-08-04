@@ -1,6 +1,6 @@
 # 🕵️ Detecting Information Leakage using Graph based probabilistic reasoning
 
-This is a project that uses a  Graph based probabilistic reasoning model to detect **information leakage** in textual content: Usefull in Large language model powered chatbots which uses cache systems for better performance.
+This is a project that uses a  Graph based probabilistic reasoning model to detect **information leakage** in textual content: Useful in Large language model powered chatbots which uses cache systems for better performance.
 Built with **FastAPI**, the API includes endpoints for both prediction and retraining. The model is trained on word-level transitions in documents using a probabilistic approach.
 
 ---
@@ -82,12 +82,12 @@ Retrains the model with custom data.
 Graph-based-Probabilistic-reasoning/
 ├── app/
 │   ├── main.py            # FastAPI endpoints
-│   ├── models/            # model logic
+│   ├── model/             # Saved model
+│   ├── detector/          # model logic
 │   ├── services/          # Prediction and training interfaces
+│   ├── training/          # Training pipeline script    
 │   ├── utils/             # Data loader utility
-│   └── data/              # training datasets
-├── training/              # Training pipeline script
-├── model/                 # Saved model
+│   └── data/              # training datasets           
 ├── Dockerfile             # For containerization
 ├── requirements.txt       # Dependencies
 └── README.md
