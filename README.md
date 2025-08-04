@@ -87,6 +87,6 @@ Graph-based-Probabilistic-reasoning/
 │   ├── training/          # Training pipeline script    
 │   ├── utils/             # Data loader utility
 │   └── data/              # training datasets           
-├── requirements.txt       # Dependencies
+├── setup.py               # installs Dependencies
 └── README.md
 ```
