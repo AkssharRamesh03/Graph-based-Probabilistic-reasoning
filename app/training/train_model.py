@@ -11,7 +11,7 @@ def train_and_save(normal_data=None, leaked_data=None):
     model = GraphProbabilisticInformationLeakageDetector(p1=2, p2=2)
     model.train(train_normal, train_leaked)
     os.makedirs("model", exist_ok=True)
-    model.save("model/probabilistic_model.pkl")
+    model.save("../model/probabilistic_model.pkl")
 
 
 if __name__ == "__main__":

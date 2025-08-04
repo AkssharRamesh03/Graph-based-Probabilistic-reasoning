@@ -15,26 +15,25 @@ cd Graph-based-Probabilistic-reasoning
 
 ### Local Setup (without Docker)
 ```bash
-pip install -r requirements.txt
-python training/train_model.py  # Train the model
+pip install -e .
 uvicorn app.main:app --reload  # Start the server at localhost:8000
 ```
 
 ## API Endpoints
 
-### `POST /predict`
+### `POST /detect`
 Classifies a given piece of text as either leakage or clean.
 
 **Request Body:**
 ```json
 {
-  "text": "The home location of Aksshar is SE10 9LS which is 2KM away from the Greenwich NHS Hospital."
+  "text": "Based on his medical records, Mark's home location is SE10 9LS, which is 2 km away from Greenwich NHS Hospital."
 }
 ```
 **Response:**
 ```json
 {
-  "prediction": "leak"
+  "class": "1" /* leak (class 0: normal)*/
 }
 ```
 
