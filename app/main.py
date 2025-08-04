@@ -19,7 +19,7 @@ class TrainingRequest(BaseModel):
 def predict(request: TextRequest):
     try:
         result = get_prediction(request.text)
-        return {"prediction": "fake" if result == 1 else "real"}
+        return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

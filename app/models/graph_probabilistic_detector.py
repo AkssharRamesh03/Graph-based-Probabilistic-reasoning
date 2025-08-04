@@ -64,9 +64,10 @@ class GraphProbabilisticInformationLeakageDetector:
         tokens = text.lower().split()
         if len(tokens) < 2:
             return random.randint(0, 1)
-        real_prob = self._calculate_sequence_probability(tokens, self.normal_chain, self.normal_in_mean, self.normal_out_mean)
+        real_prob = self._calculate_sequence_probability(tokens, self.normal_chain, self.normal_in_mean,
+                                                         self.normal_out_mean)
         fake_prob = self._calculate_sequence_probability(tokens, self.leak_chain, self.leak_in_mean, self.leak_out_mean)
-        return 1 if fake_prob > real_prob else 0
+        return {"class": 1, "confidence_score": fake_prob} if fake_prob > real_prob else {"class": 0, "confidence": real_prob}
 
     def save(self, path):
         with open(path, 'wb') as f:

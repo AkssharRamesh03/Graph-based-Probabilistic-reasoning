@@ -1,4 +1,4 @@
-# Fake News Classifier API
+# Data leakage detection API
 
 This is a production-ready backend API that uses a custom-built Markov Chain model to classify news articles as **real** or **fake**.
 
@@ -40,12 +40,12 @@ uvicorn app.main:app --reload  # Start the server at localhost:8000
 
 ### 2. Build the Image
 ```bash
-docker build -t fake-news-api .
+docker build -t app .
 ```
 
 ### 3. Run the Container
 ```bash
-docker run -p 8000:8000 fake-news-api
+docker run -p 8000:8000 app
 ```
 
 Server will be live at: [http://localhost:8000](http://localhost:8000)

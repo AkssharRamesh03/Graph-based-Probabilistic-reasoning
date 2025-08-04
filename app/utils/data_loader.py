@@ -3,7 +3,9 @@ import json
 
 def load_data():
     with open("app/data/train_normal.json") as f:
-        normal_data = json.load(f)
+        data = json.load(f)
+        normal_data = data["data"]
     with open("app/data/train_leaked.json") as f:
-        leaked_data = json.load(f)
+        data = json.load(f)
+        leaked_data = data["data"]
     return normal_data, leaked_data
