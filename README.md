@@ -1,30 +1,19 @@
-# Fake News Classifier API
+# 🕵️ Detecting Information Leakage using Graph based probabilistic reasoning
 
-This is a production-ready backend API that uses a custom-built Markov Chain model to classify news articles as **real** or **fake**.
-
-Built with **FastAPI**, the API includes endpoints for both prediction and model retraining. The model is trained on word-level transitions in news text using a probabilistic Markov Chain approach.
-
----
-
-## 📦 Features
-
-- 🧠 Markov Chain–based text classification
-- 🔁 API-based retraining endpoint
-- 🚀 FastAPI backend
-- 🐳 Dockerized for deployment
-- 🔬 Supports JSON input/output for easy integration
+This is a project that uses a  Graph based probabilistic reasoning model to detect **information leakage** in textual content: Usefull in Large language model powered chatbots which uses cache systems for better performance.
+Built with **FastAPI**, the API includes endpoints for both prediction and retraining. The model is trained on word-level transitions in documents using a probabilistic approach.
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 📥 Clone the Repo
+### Clone the Repo
 ```bash
 git clone https://github.com/yourusername/fake_news_api.git
 cd fake_news_api
 ```
 
-### 🐍 Local Setup (without Docker)
+### Local Setup (without Docker)
 ```bash
 pip install -r requirements.txt
 python training/train_model.py  # Train the model
@@ -33,7 +22,7 @@ uvicorn app.main:app --reload  # Start the server at localhost:8000
 
 ---
 
-## 🐳 Docker Setup (Recommended)
+## Docker Setup (Recommended)
 
 ### 1. Install Docker Desktop
 [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
@@ -52,10 +41,10 @@ Server will be live at: [http://localhost:8000](http://localhost:8000)
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
-### 📍 `POST /predict`
-Classifies a single news text.
+### `POST /predict`
+Classifies a given piece of text as either leakage or clean.
 
 **Request Body:**
 ```json
@@ -70,7 +59,7 @@ Classifies a single news text.
 }
 ```
 
-### 📍 `POST /train`
+### `POST /train`
 Retrains the model with new data.
 
 **Request Body:**
@@ -89,7 +78,7 @@ Retrains the model with new data.
 
 ---
 
-## 🧪 Development Notes
+## Development Notes
 - `model/markov_model.pkl` is where the trained model is saved.
 - API automatically reloads model after `/train` is called.
 - Training is word-token based; punctuation and casing matter unless further cleaned.
@@ -111,20 +100,3 @@ fake_news_api/
 ├── requirements.txt       # Dependencies
 └── README.md
 ```
-
----
-
-## 🛡️ License
-This project is licensed under the MIT License.
-
----
-
-## ✨ Future Improvements
-- Add authentication to protect training endpoint
-- Store uploaded training data for audit
-- Enable logging and model evaluation metrics
-- Swap Markov with transformer-based model as an upgrade
-
----
-
-Made with 💻 + ⚙️ by [Your Name]
