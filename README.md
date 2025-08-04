@@ -82,7 +82,7 @@ Retrains the model with custom data.
 Graph-based-Probabilistic-reasoning/
 ├── app/
 │   ├── main.py            # FastAPI endpoints
-│   ├── models/            # Markov model logic
+│   ├── models/            # model logic
 │   ├── services/          # Prediction and training interfaces
 │   ├── utils/             # Data loader utility
 │   └── data/              # training datasets
