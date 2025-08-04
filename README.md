@@ -72,7 +72,7 @@ Retrains the model with custom data.
 ---
 
 ## Development Notes
-- `model/markov_model.pkl` is where the trained model is saved.
+- `model/probabilistic_model.pkl` is where the trained model is saved.
 - API automatically reloads model after `/train` is called.
 
 ---
