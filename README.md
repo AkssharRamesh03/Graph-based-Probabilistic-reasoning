@@ -40,6 +40,14 @@ Classifies a given piece of text as either leakage or clean.
 ### `POST /train`
 Retrains the model with custom data.
 
+**Request Body**
+```json
+{
+    "normal_text": [],
+    "leaked_text": []
+}
+```
+
 **Response:**
 ```json
 {

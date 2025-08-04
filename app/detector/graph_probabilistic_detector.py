@@ -67,7 +67,7 @@ class GraphProbabilisticInformationLeakageDetector:
         normal_prob = self._calculate_sequence_probability(tokens, self.normal_chain, self.normal_in_mean,
                                                          self.normal_out_mean)
         leak_prob = self._calculate_sequence_probability(tokens, self.leak_chain, self.leak_in_mean, self.leak_out_mean)
-        return {"class": 1} if leak_prob > normal_prob else {"class": 0}
+        return 1 if leak_prob > normal_prob else 0
 
     def save(self, path):
         with open(path, 'wb') as f:
