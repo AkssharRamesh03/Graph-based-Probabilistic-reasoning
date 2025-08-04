@@ -13,7 +13,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="LLM Data leakage Classifier API")
+app = FastAPI(title="LLM Data leakage Detector API")
 
 class TextRequest(BaseModel):
     text: str
@@ -26,6 +26,7 @@ class TrainingRequest(BaseModel):
 
 @app.post("/detect")
 def predict(request: TextRequest):
+    """Endpoint for detecting potential data leaks in input text."""
     logging.info(f"Detection request received: {request.text[:50]}...")
     try:
         result = get_prediction(request.text)
@@ -37,6 +38,7 @@ def predict(request: TextRequest):
 
 @app.post("/train")
 def train(request: TrainingRequest):
+    """Endpoint for training a new model with provided datasets, will train the default dataset if no custom dataset provided"""
     logging.info(f"Training request received")
     try:
         train_and_save(request.normal_text, request.leaked_text)

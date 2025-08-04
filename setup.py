@@ -13,5 +13,5 @@ setup(
         "numpy",
         "pandas"
     ],
-    python_requires=">=3.1",  # Specify Python version
+    python_requires=">=3.1",
 )

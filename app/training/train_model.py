@@ -5,6 +5,7 @@ import os
 base_dir = os.path.dirname(os.path.abspath(__file__))
 
 def train_and_save(normal_data=None, leaked_data=None):
+    """train and save detection model"""
     if normal_data is None or leaked_data is None:
         normal_data, leaked_data = load_data()
     train_normal = normal_data[:int(0.8 * len(normal_data))]

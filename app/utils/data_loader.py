@@ -2,6 +2,7 @@ import json
 
 
 def load_data():
+    """load training data"""
     with open("../data/train_normal.json") as f:
         data = json.load(f)
         normal_data = data["data"]

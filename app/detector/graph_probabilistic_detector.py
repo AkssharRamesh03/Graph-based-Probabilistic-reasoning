@@ -6,6 +6,7 @@ from collections import defaultdict
 
 
 def _calculate_mean_probabilities(chain):
+    """Calculate mean transition probabilities for incoming/outgoing edges in Markov chain."""
     out_mean = {word: np.mean(list(transitions.values())) if transitions else 0 for word, transitions in
                 chain.items()}
     in_transitions = defaultdict(list)
@@ -17,6 +18,7 @@ def _calculate_mean_probabilities(chain):
 
 
 def _build_probabilistic_chain(documents):
+    """Build Markov chain transition probabilities from document corpus."""
     chain = defaultdict(lambda: defaultdict(int))
     for doc in documents:
         tokens = doc.lower().split()
@@ -31,6 +33,7 @@ def _build_probabilistic_chain(documents):
 
 class GraphProbabilisticInformationLeakageDetector:
     def __init__(self, p1=2, p2=2, smoothing_constant=1e-8):
+        """Initialize detector with power weights and smoothing constant."""
         self.p1 = p1
         self.p2 = p2
         self.smoothing_constant = smoothing_constant
@@ -42,6 +45,7 @@ class GraphProbabilisticInformationLeakageDetector:
         self.leak_out_mean = None
 
     def _calculate_sequence_probability(self, sequence, chain, in_mean, out_mean):
+        """Calculate log probability of token sequence using chain transition probabilities."""
         log_prob = 0.0
         for i in range(len(sequence) - 1):
             current_word, next_word = sequence[i].lower(), sequence[i + 1].lower()
@@ -55,12 +59,14 @@ class GraphProbabilisticInformationLeakageDetector:
         return log_prob
 
     def train(self, normal_text, leaked_text):
+        """Train model on normal and leaked text corpora."""
         self.normal_chain = _build_probabilistic_chain(normal_text)
         self.leak_chain = _build_probabilistic_chain(leaked_text)
         self.normal_in_mean, self.normal_out_mean = _calculate_mean_probabilities(self.normal_chain)
         self.leak_in_mean, self.leak_out_mean = _calculate_mean_probabilities(self.leak_chain)
 
     def predict(self, text):
+        """Predict if input text resembles leaked data (1) or normal (0)."""
         tokens = text.lower().split()
         if len(tokens) < 2:
             return random.randint(0, 1)
@@ -70,10 +76,12 @@ class GraphProbabilisticInformationLeakageDetector:
         return 1 if leak_prob > normal_prob else 0
 
     def save(self, path):
+        """Serialize model to pickle file."""
         with open(path, 'wb') as f:
             pickle.dump(self, f)
 
     @staticmethod
     def load(path):
+        """Deserialize model from pickle file."""
         with open(path, 'rb') as f:
             return pickle.load(f)
