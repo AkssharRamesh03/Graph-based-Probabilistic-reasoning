@@ -1,4 +1,4 @@
-from app.models.graph_probabilistic_detector import GraphProbabilisticInformationLeakageDetector
+from app.detector.graph_probabilistic_detector import GraphProbabilisticInformationLeakageDetector
 from app.utils.data_loader import load_data
 import os
 

@@ -1,4 +1,4 @@
-from app.models.graph_probabilistic_detector import GraphProbabilisticInformationLeakageDetector
+from app.detector.graph_probabilistic_detector import GraphProbabilisticInformationLeakageDetector
 
 model = GraphProbabilisticInformationLeakageDetector.load("model/probabilistic_model.pkl")
 
