@@ -31,7 +31,7 @@ Classifies a given piece of text as either leakage or clean.
 }
 ```
 **Response:**
-/* leak (class 0: normal) */
+(class 0: normal, class 1: leak)
 ```json
 {
   "class": "1" 
