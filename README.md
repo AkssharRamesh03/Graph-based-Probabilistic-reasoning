@@ -20,27 +20,6 @@ python training/train_model.py  # Train the model
 uvicorn app.main:app --reload  # Start the server at localhost:8000
 ```
 
----
-
-## Docker Setup (Recommended)
-
-### 1. Install Docker Desktop
-[https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
-
-### 2. Build the Image
-```bash
-docker build -t app .
-```
-
-### 3. Run the Container
-```bash
-docker run -p 8000:8000 app
-```
-
-Server will be live at: [http://localhost:8000](http://localhost:8000)
-
----
-
 ## API Endpoints
 
 ### `POST /predict`
@@ -88,7 +67,6 @@ Graph-based-Probabilistic-reasoning/
 │   ├── training/          # Training pipeline script    
 │   ├── utils/             # Data loader utility
 │   └── data/              # training datasets           
-├── Dockerfile             # For containerization
 ├── requirements.txt       # Dependencies
 └── README.md
 ```
