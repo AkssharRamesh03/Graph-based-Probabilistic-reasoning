@@ -6,7 +6,7 @@ from collections import defaultdict
 
 
 def _calculate_mean_probabilities(chain):
-    """Calculate mean transition probabilities for incoming/outgoing edges in Markov chain."""
+    """Calculate mean transition probabilities for incoming/outgoing edges in probabilistic chain."""
     out_mean = {word: np.mean(list(transitions.values())) if transitions else 0 for word, transitions in
                 chain.items()}
     in_transitions = defaultdict(list)
@@ -18,7 +18,7 @@ def _calculate_mean_probabilities(chain):
 
 
 def _build_probabilistic_chain(documents):
-    """Build Markov chain transition probabilities from document corpus."""
+    """Build probabilistic chain transition probabilities from document corpus."""
     chain = defaultdict(lambda: defaultdict(int))
     for doc in documents:
         tokens = doc.lower().split()
